@@ -81,7 +81,10 @@ def format_doctor(data: dict) -> str:
         lines.append(line)
     lines.append("MIPS toolchains:")
     if not data.get("mips_toolchains"):
-        lines.append("  none found")
+        if data.get("ok_for_podman_container"):
+            lines.append("  none found natively — available inside Podman container")
+        else:
+            lines.append("  none found")
     else:
         for chain in data["mips_toolchains"]:
             status = "usable" if chain.get("usable_for_elf_smoke") else "partial"
