@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.10.0] — Unreleased
+## [1.10.0] — 2026-07-16
 
 ### Changed
 
@@ -10,20 +10,22 @@
   compiler, subsegments, code/data boundaries, `follows_vram` chains). The output
   is post-processed to add toolkit-specific options (`dump_symbols`, explicit paths,
   `disassemble_all`, macro names) while preserving splat's segment analysis.
-  The old template remains as a fallback when splat is unavailable.
+  The old template remains as a fallback when splat is unavailable. Config now
+  generates multi-segment output (header, IPL3, entry, main, tail bins) instead
+  of a single monolithic code segment.
 
 ### Added
 
-- **`dump-symbols` command** (`splat.py`, `commands/matching.py`).  
+- **`dump-symbols` command** (`splat.py`, `commands/matching.py`, `real_rom_report.py`).  
   Runs splat with `dump_symbols` + `dump_symbols_references`, parses
   `.splat/splat_symbols.csv`, reports symbol counts by type/subsegment
-  and cross-reference statistics.
+  and cross-reference statistics. Registered in CLI, test suite, and
+  command coverage mapping. CLI command count updated from 42 to 43.
 
-- **Splat hint parsing** (`splat.py`).  
+- **Splat hint parsing** (`splat.py`, `commands/matching.py`).  
   `run_splat_config` parses splat's stdout/stderr for file-boundary splits,
-  rodata-to-text pairings, and rodata start hints. `splat-run` surfaces counts.
-
-## [1.9.1] — Unreleased
+  rodata-to-text pairings, and rodata start hints. `splat-run` surfaces hint
+  counts in human-readable output. JSON reports include a `hints` field.
 
 ### Fixed
 
@@ -57,6 +59,16 @@
   `.o`. The template now parses the linker script for `build/assets/*.o`
   references, finds corresponding `assets/*.bin` files, and generates
   `binobj` Ninja rules using `objcopy -I binary -O elf32-tradbigmips`.
+
+### Documentation
+
+- README: added `dump-symbols` to decision table, updated splat-init description
+  to mention `create_config` delegation, added `recomp-smoke`/`sync-ignored`
+  to N64Recomp section, linked to splat General Workflow wiki
+- AGENTS.md: updated version, command count, limitation notes, testing notes
+- `docs/splat-and-toolchain.md`: rewrote Starting YAML section
+- `docs/end-to-end.md`: updated Step 4 config description
+- `.gitignore`: added `AGENTS.md` (local workspace file, not distributed)
 
 ## [1.9.0] — 2026-07-10
 
