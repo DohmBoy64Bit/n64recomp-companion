@@ -1,0 +1,64 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.coverage
+.venv/
+venv/
+
+# Build and generated output
+build/
+out/
+dist/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+compile_commands.json
+RecompiledFuncs/
+generated/
+recomp-report.json
+batch-report.json
+
+# Local dependency clones
+.deps/
+thirdparty/
+N64Recomp/
+N64ModernRuntime/
+
+# Editor config
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+AGENTS.md
+
+# Do not commit game files, generated proprietary code, or local dumps
+*.z64
+*.n64
+*.v64
+*.rom
+*.bin
+*.elf
+*.o
+*.a
+*.so
+*.dll
+*.dylib
+*.exe
+*.sav
+*.eep
+*.sra
+*.fla
+*.cdb.txt
+logs/traces/*.md
+N64_PROJECT_STATE.local.md
+
+# Allow synthetic unit-test fixtures even though real ROMs and linked ELFs stay ignored.
+!tests/fixtures/
+!tests/fixtures/minimal.z64
+!tests/fixtures/minimal.v64
+!tests/fixtures/minimal_mips_be.elf
+!tests/fixtures/valid_batch.toml
+!tests/fixtures/valid_elf_config.toml

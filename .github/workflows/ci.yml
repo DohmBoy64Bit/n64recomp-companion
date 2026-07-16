@@ -1,0 +1,123 @@
+name: ci
+
+env:
+  PYTHONDONTWRITEBYTECODE: "1"
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  unit:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python: ["3.11", "3.12", "3.13"]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+      - run: python -m pip install pip==25.1.1
+      - run: python -m pip install -e .
+      - run: python -m unittest discover -s tests -v
+      - run: python scripts/verify_release.py --root . --strict-clean
+      - run: python -m n64recomp_kit check-config tests/fixtures/valid_elf_config.toml
+      - run: python -m n64recomp_kit elf-info tests/fixtures/minimal_mips_be.elf
+      - run: python -m n64recomp_kit rom-info tests/fixtures/minimal.z64
+
+  static-scripts:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - name: Parse PowerShell
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          Get-ChildItem -Recurse -Filter *.ps1 | ForEach-Object {
+            $errors = $null
+            [System.Management.Automation.Language.Parser]::ParseFile($_.FullName, [ref]$null, [ref]$errors) | Out-Null
+            if ($errors.Count -gt 0) { $errors | Format-List; throw "PowerShell parse failure: $($_.FullName)" }
+          }
+      - name: ShellCheck
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y shellcheck
+          find scripts -type f -name '*.sh' -print0 | xargs -0 shellcheck
+
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: "3.12"
+      - run: python -m pip install pip==25.1.1
+      - run: python scripts/verify_release.py --root . --strict-clean
+      - run: python -m pip wheel . --no-deps --wheel-dir dist
+      - run: python -m venv build/wheel-venv
+      - run: build/wheel-venv/bin/pip install dist/*.whl
+      - run: build/wheel-venv/bin/n64recomp-kit --help
+      - run: build/wheel-venv/bin/n64recomp-kit new-runtime-project --output build/wheel-runtime --name WheelRuntime --overwrite
+      - run: test -f build/wheel-runtime/assets/ui/launcher.rml
+      - run: test -f build/wheel-runtime/.n64recomp-runtime
+      - run: python -c "from pathlib import Path; Path('build/real-rom.z64').write_bytes(Path('tests/fixtures/minimal.z64').read_bytes() + b'\0' * 8192)"
+      - run: build/wheel-venv/bin/n64recomp-kit real-rom-test --rom build/real-rom.z64 --project-root build/real-rom-project --output suite
+      - run: test -f build/real-rom-project/suite/real-rom-test-report.json
+
+  splat-and-mips:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -e . -r requirements-decomp.txt
+      - run: sudo apt-get update && sudo apt-get install -y binutils-mips-linux-gnu gcc-mips-linux-gnu
+      - run: python tests/integration/create_splat_fixture.py build/splat-integration
+      - run: splat split build/splat-integration/splat.yaml
+      - run: test -f build/splat-integration/minimal.ld
+      - run: python -m n64recomp_kit mips-smoke --prefix mips-linux-gnu- --output-dir build/mips-smoke
+
+  n64recomp-source-integration:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - run: sudo apt-get update && sudo apt-get install -y cmake ninja-build g++ git binutils-mips-linux-gnu
+      - run: git clone --recurse-submodules https://github.com/N64Recomp/N64Recomp.git build/N64Recomp
+      - run: git -C build/N64Recomp checkout --detach ffb39cdad1da5de07eaaa48bd1db4a89a7986771
+      - run: git -C build/N64Recomp submodule update --init --recursive
+      - run: cmake -S build/N64Recomp -B build/N64Recomp/build -G Ninja -DCMAKE_BUILD_TYPE=Release
+      - run: cmake --build build/N64Recomp/build --parallel
+      - run: bash scripts/ci/run_n64recomp_integration.sh build/n64recomp-integration "$PWD/build/N64Recomp/build/N64Recomp"
+
+  podman-build:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - run: sudo apt-get update && sudo apt-get install -y podman
+      - run: podman build -t n64recomp-companion:ci -f Containerfile .
+      - run: podman run --rm n64recomp-companion:ci n64recomp-kit --help
+
+  runtime-configure:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -e .
+      - run: python -m n64recomp_kit new-runtime-project --output build/RuntimeCheck --name RuntimeCheck --overwrite
+      - shell: pwsh
+        run: build/RuntimeCheck/scripts/Configure-Windows.ps1 -DisableRT64
+      - shell: pwsh
+        run: build/RuntimeCheck/scripts/Build-Windows.ps1 -Preset windows-msvc-no-rt64

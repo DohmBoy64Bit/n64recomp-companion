@@ -1,0 +1,25 @@
+<rml>
+<head>
+    <title>N64 Runtime Starter Settings</title>
+    <link type="text/rcss" href="styles/main.rcss" />
+</head>
+<body class="screen settings">
+    <div class="panel wide">
+        <h1>Settings</h1>
+        <section>
+            <h2>Graphics</h2>
+            <label><input type="checkbox" id="rt64-widescreen" /> RT64 widescreen enhancements</label>
+            <label><input type="checkbox" id="rt64-interpolation" /> RT64 high-frame-rate interpolation</label>
+        </section>
+        <section>
+            <h2>Input</h2>
+            <button id="configure-controller">Configure Controller</button>
+        </section>
+        <section>
+            <h2>Storage</h2>
+            <button id="open-save-folder">Open Save Folder</button>
+        </section>
+        <button id="settings-back">Back</button>
+    </div>
+</body>
+</rml>

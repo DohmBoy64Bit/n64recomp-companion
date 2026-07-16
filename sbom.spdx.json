@@ -1,0 +1,100 @@
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "n64recomp-companion-1.9.0",
+  "documentNamespace": "urn:uuid:365d47bf-522e-4ac7-99b7-69fb291b999f",
+  "creationInfo": {
+    "created": "2026-07-10T00:00:00Z",
+    "creators": [
+      "Tool: n64recomp-companion-release-audit"
+    ]
+  },
+  "packages": [
+    {
+      "name": "n64recomp-companion",
+      "SPDXID": "SPDXRef-Package-n64recomp-companion",
+      "versionInfo": "1.9.0",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "MIT",
+      "licenseDeclared": "MIT",
+      "copyrightText": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:pypi/n64recomp-companion@1.9.0"
+        }
+      ]
+    },
+    {
+      "name": "tomlkit",
+      "SPDXID": "SPDXRef-Package-tomlkit",
+      "versionInfo": "0.13.3",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "MIT",
+      "licenseDeclared": "MIT",
+      "copyrightText": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:pypi/tomlkit@0.13.3"
+        }
+      ]
+    },
+    {
+      "name": "ruamel.yaml",
+      "SPDXID": "SPDXRef-Package-ruamel-yaml",
+      "versionInfo": "0.18.17",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "MIT",
+      "licenseDeclared": "MIT",
+      "copyrightText": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:pypi/ruamel.yaml@0.18.17"
+        }
+      ]
+    },
+    {
+      "name": "splat64",
+      "SPDXID": "SPDXRef-Package-splat64",
+      "versionInfo": "0.41.0",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "MIT",
+      "licenseDeclared": "MIT",
+      "copyrightText": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:pypi/splat64@0.41.0"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Package-n64recomp-companion",
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-tomlkit"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-n64recomp-companion",
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-ruamel-yaml"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-splat64",
+      "relationshipType": "OPTIONAL_DEPENDENCY_OF",
+      "relatedSpdxElement": "SPDXRef-Package-n64recomp-companion"
+    }
+  ]
+}

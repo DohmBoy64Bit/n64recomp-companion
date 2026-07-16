@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools==82.0.1"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "n64recomp-companion"
+version = "1.10.0"
+description = "Windows-first workflow toolkit for N64Recomp, Splat, MIPS ELF generation, Podman, RT64/RmlUi scaffolding, and local Mupen64MCP agents"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [{name = "Sean Borg"}]
+keywords = ["n64", "recompilation", "n64recomp", "splat", "mips", "rom", "elf", "rt64", "rmlui", "mcp", "lmstudio", "llama-cpp"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Environment :: Console",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Software Development :: Build Tools",
+]
+dependencies = [
+  "tomlkit==0.13.3",
+  "ruamel.yaml==0.18.17",
+]
+
+[project.scripts]
+n64recomp-kit = "n64recomp_kit.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["n64recomp_kit*"]
+
+[tool.setuptools.package-data]
+n64recomp_kit = ["resources/runtime_starter/**/*", "resources/runtime_starter/.n64recomp-runtime"]

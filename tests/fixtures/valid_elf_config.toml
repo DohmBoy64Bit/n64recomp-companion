@@ -1,0 +1,12 @@
+[input]
+entrypoint = 0x80000400
+elf_path = "minimal_mips_be.elf"
+output_func_path = "RecompiledFuncs"
+single_file_output = false
+functions_per_output_file = 50
+recomp_include = "#include \"recomp.h\""
+
+[patches]
+stubs = []
+ignored = []
+renamed = []

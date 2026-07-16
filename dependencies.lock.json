@@ -1,0 +1,89 @@
+{
+  "container_base": {
+    "digest": "sha256:4fbb8e6a8395de5a7550b33509421a2bafbc0aab6c06ba2cef9ebffbc7092d90",
+    "image": "ubuntu:24.04"
+  },
+  "external_runtime_tools": {
+    "CMake": "operator-installed or container-provided; detected at runtime",
+    "LM Studio": "operator-installed; API capability probed at runtime",
+    "Ninja": "operator-installed or container-provided; detected at runtime",
+    "Podman": "operator-installed; detected at runtime",
+    "Visual Studio": "operator-installed; detected by Windows scripts",
+    "llama.cpp": "operator-installed; API capability probed at runtime"
+  },
+  "generated_on": "2026-07-10",
+  "github_actions": {
+    "actions/checkout": {
+      "release": "6.0.3",
+      "revision": "df4cb1c069e1874edd31b4311f1884172cec0e10"
+    },
+    "actions/setup-python": {
+      "release": "6.3.0",
+      "revision": "ece7cb06caefa5fff74198d8649806c4678c61a1"
+    }
+  },
+  "mcp_protocol": {
+    "accepted_versions": [
+      "2025-11-25",
+      "2025-06-18",
+      "2025-03-26"
+    ],
+    "preferred_version": "2025-11-25"
+  },
+  "python_build_tools": {
+    "pip": "25.1.1",
+    "setuptools": "82.0.1",
+    "uv": "0.10.0"
+  },
+  "python_dependencies": {
+    "ruamel.yaml": "0.18.17",
+    "splat64": "0.41.0",
+    "tomlkit": "0.13.3"
+  },
+  "release_test_environment": {
+    "cmake": "3.31.6",
+    "external_tools_not_executed": [
+      "Podman",
+      "PowerShell",
+      "MSVC",
+      "N64Recomp",
+      "GNU MIPS cross toolchain",
+      "RT64/RmlUi runtime build",
+      "Mupen64MCP",
+      "LM Studio",
+      "llama.cpp"
+    ],
+    "git": "2.47.3",
+    "ninja": "1.12.1",
+    "platform": "Linux x86_64 sandbox",
+    "python": "3.13.5",
+    "real_rom_suite_checks": {
+      "all_stage_missing_dependency_classification": "passed",
+      "safe_installed_wheel": "passed",
+      "source_unit_and_release_stages": "passed",
+      "splat_0_41_0_stage": "passed_with_synthetic_fixture"
+    },
+    "splat64": "0.41.0",
+    "unit_tests_passed": 65
+  },
+  "schema_version": 1,
+  "source_dependencies": {
+    "Mupen64MCP": {
+      "repository": "https://github.com/DohmBoy64Bit/Mupen64MCP.git",
+      "revision": "9fa441d4c603efc47b570d021c767f93b6625cbd"
+    },
+    "N64Recomp": {
+      "repository": "https://github.com/N64Recomp/N64Recomp.git",
+      "revision": "ffb39cdad1da5de07eaaa48bd1db4a89a7986771"
+    },
+    "RT64": {
+      "repository": "https://github.com/rt64/rt64.git",
+      "revision": "f0728a2520d5aa735886240de3fee75cc805f6d6"
+    },
+    "vcpkg": {
+      "release": "2026.06.24",
+      "repository": "https://github.com/microsoft/vcpkg.git",
+      "revision": "cd61e1e26a038e82d6550a3ebbe0fbbfe7da78e3"
+    }
+  }
+}

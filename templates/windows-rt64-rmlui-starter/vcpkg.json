@@ -1,0 +1,10 @@
+{
+  "name": "n64-runtime-starter-runtime-starter",
+  "version-string": "0.1.0",
+  "dependencies": [
+    "sdl2",
+    "rmlui",
+    "lunasvg",
+    "freetype"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "daemon": {
+    "headless_debug": {
+      "audio": "dummy",
+      "gfx": "dummy",
+      "rsp": "dummy"
+    },
+    "port": 9876,
+    "rendered_capture": {
+      "audio": "dummy",
+      "gfx": "plugins/mupen64plus-video-rice.dll",
+      "rsp": "plugins/mupen64plus-rsp-hle.dll"
+    }
+  },
+  "llama_cpp": {
+    "api_key": "local",
+    "base_url": "http://127.0.0.1:8080/v1"
+  },
+  "lmstudio": {
+    "api_key": "lm-studio",
+    "base_url": "http://127.0.0.1:1234/v1"
+  },
+  "mcp": {
+    "args": [
+      "-NoProfile",
+      "-ExecutionPolicy",
+      "Bypass",
+      "-File",
+      "scripts/Start-Mupen64McpServer.ps1"
+    ],
+    "command": "powershell",
+    "root_env": "MUPEN64MCP_ROOT",
+    "server_name": "n64-debug-mcp"
+  },
+  "policy": {
+    "allowed_tools": [],
+    "mutation_policy": "deny"
+  }
+}

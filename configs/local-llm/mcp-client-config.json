@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "n64-debug-mcp": {
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "scripts/Start-Mupen64McpServer.ps1"
+      ],
+      "command": "powershell",
+      "env": {
+        "MUPEN64MCP_ROOT": "${MUPEN64MCP_ROOT}"
+      }
+    }
+  }
+}

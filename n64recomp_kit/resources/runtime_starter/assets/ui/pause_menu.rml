@@ -1,0 +1,14 @@
+<rml>
+<head>
+    <title>{{PROJECT_NAME}} Pause</title>
+    <link type="text/rcss" href="styles/main.rcss" />
+</head>
+<body class="screen pause">
+    <div class="panel compact">
+        <h1>Paused</h1>
+        <button id="resume-game">Resume</button>
+        <button id="pause-settings">Settings</button>
+        <button id="return-launcher">Return to Launcher</button>
+    </div>
+</body>
+</rml>

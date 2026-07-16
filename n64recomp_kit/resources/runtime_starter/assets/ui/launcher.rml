@@ -1,0 +1,19 @@
+<rml>
+<head>
+    <title>{{PROJECT_NAME}} Launcher</title>
+    <link type="text/rcss" href="styles/main.rcss" />
+</head>
+<body class="screen launcher">
+    <div class="panel">
+        <svg class="logo" src="svg/logo.svg" width="96" height="96" />
+        <h1>{{PROJECT_NAME}}</h1>
+        <p class="subtitle">Native recompilation launcher shell</p>
+        <div class="button-row">
+            <button id="start-game">Start Game</button>
+            <button id="open-settings">Settings</button>
+            <button id="quit-game">Quit</button>
+        </div>
+        <p class="hint">Menu documents are loaded from assets/ui and can be bound to host callbacks.</p>
+    </div>
+</body>
+</rml>

@@ -1,0 +1,40 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 24,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "windows-msvc-vcpkg",
+      "displayName": "Windows MSVC with vcpkg manifest",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/windows-msvc-vcpkg",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+        "VCPKG_MANIFEST_MODE": "ON"
+      }
+    },
+    {
+      "name": "windows-msvc-no-rt64",
+      "displayName": "Windows MSVC with vcpkg manifest, RT64 fetch disabled",
+      "inherits": "windows-msvc-vcpkg",
+      "binaryDir": "${sourceDir}/build/windows-msvc-no-rt64",
+      "cacheVariables": {
+        "N64_STARTER_ENABLE_RT64": "OFF"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "windows-msvc-vcpkg",
+      "configurePreset": "windows-msvc-vcpkg"
+    },
+    {
+      "name": "windows-msvc-no-rt64",
+      "configurePreset": "windows-msvc-no-rt64"
+    }
+  ]
+}
