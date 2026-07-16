@@ -11,7 +11,7 @@ The complete fictional-project walkthrough is [`docs/end-to-end.md`](docs/end-to
 Use this decision table before running commands:
 
 | Goal | Start with | Continue with |
-|---|---|---|---|
+| --- | --- | --- |
 | Inspect or normalize a ROM | `rom-info`, `convert-rom` | Splat setup |
 | Build matching/disassembly metadata | `splat-init`, `splat-run` | `dump-symbols`, `matching-build`, ELF build |
 | Analyze symbol cross-references | `dump-symbols` | Refine subsegments, add symbols |
