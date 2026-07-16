@@ -15,7 +15,7 @@ The build script defaults to the pinned N64Recomp commit. Override `-N64RecompRe
 ## Build directly
 
 ```powershell
-podman build -t n64recomp-companion:1.9 -f Containerfile .
+podman build -t n64recomp-companion:1.10 -f Containerfile .
 ```
 
 The base image is digest-locked. The lock improves reproducibility but does not replace routine image/package security review.

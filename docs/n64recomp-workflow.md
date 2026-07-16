@@ -7,7 +7,7 @@ N64Recomp is best treated as a static code generator inside a larger project. Th
 | Phase | Goal | Companion commands |
 |---|---|---|
 | 0 - ROM recon | Record byte order, hashes, header fields, entrypoint hints | `rom-info`, `convert-rom`, `init-state` |
-| 1 - Splat | Generate YAML and split ROM into assembly/data artifacts | `splat-init`, `splat-run` |
+| 1 - Splat | Generate YAML and split ROM into assembly/data artifacts | `splat-init`, `splat-run`, `dump-symbols` |
 | 2 - First asm match | Build from generated assembly and compare against baserom | `emit-matching-configure`, `matching-build` |
 | 3 - ELF handoff | Assemble/link Splat output into the ELF used by N64Recomp | `emit-elf-build`, `build-elf`, `elf-info` |
 | 4 - Discovery | Record function boundaries and confidence | `init-ledger`, `workspace-status` |
@@ -20,7 +20,7 @@ Generated `asm/` is disposable. BSS, segment, overlay, and split fixes go into S
 
 | Phase | Goal | Companion commands |
 |---|---|---|
-| B0 - Metadata clean | Confirm ROM, Splat YAML, symbols, overlays, and function ledger quality | `workspace-status`, `elf-info`, `check-config` |
+| B0 - Metadata clean | Confirm ROM, Splat YAML, symbols, overlays, and function ledger quality | `workspace-status`, `elf-info`, `check-config`, `dump-symbols` |
 | B1 - Codegen | Produce recompilation C/C++ output | `run`, `summarize-output`, `batch` |
 | B2 - Runtime | Wire librecomp/host runtime, overlays, DMA, saves, input, audio | project runtime build |
 | B3 - Renderer/host | Bring up renderer, audio, input, save paths, packaging | CDB and project runtime logs |

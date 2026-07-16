@@ -2,6 +2,16 @@
 
 This repo includes generalized versions of the high-value archived scripts. They are integrated as `n64recomp-kit` subcommands instead of project-specific one-off files.
 
+## Symbol cross-reference analysis
+
+After running `splat-run`, analyze symbol relationships with `dump-symbols`:
+
+```powershell
+python -m n64recomp_kit dump-symbols --config decomp\splat.yaml
+```
+
+This parses `.splat/splat_symbols.csv`, reporting symbol counts by type (func, jtbl, label, etc.) and subsegment, plus the number of cross-section references. Use this to identify rodata-to-text pairings and refine subsegment boundaries. Requires `dump_symbols: True` and `dump_symbols_references: True` in the Splat config (set automatically by `splat-init`).
+
 ## ELF readiness audit
 
 Use this after you have a Splat-built ELF or a saved `readelf -sW` dump.

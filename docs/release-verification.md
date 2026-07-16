@@ -33,7 +33,7 @@ The release verifier parses Python, JSON, TOML, and YAML; checks local Markdown 
 ```powershell
 python -m pip wheel . --no-deps --wheel-dir dist
 python -m venv build\wheel-venv
-build\wheel-venv\Scripts\python -m pip install dist\n64recomp_companion-1.9.0-py3-none-any.whl
+build\wheel-venv\Scripts\python -m pip install dist\n64recomp_companion-1.10.0-py3-none-any.whl
 build\wheel-venv\Scripts\n64recomp-kit --help
 build\wheel-venv\Scripts\n64recomp-kit new-runtime-project --output build\wheel-runtime --name WheelRuntime --overwrite
 build\wheel-venv\Scripts\n64recomp-kit real-rom-test --rom C:\roms\starfall_us.z64 --project-root build\wheel-suite-project --output suite
